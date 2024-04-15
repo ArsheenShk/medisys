@@ -4,6 +4,8 @@ from PIL import ImageTk
 from tkcalendar import DateEntry
 import sqlite3
 
+
+
 # Establishing connection to SQLite database
 conn = sqlite3.connect('user_database.db')
 c = conn.cursor()
