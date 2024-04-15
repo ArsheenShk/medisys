@@ -3,6 +3,7 @@ from PIL import ImageTk,Image
 from tkcalendar import DateEntry
 from tkinter import messagebox
 from homepageDB import*
+
 def message(l):
         choice,msg=l[0],l[1]
         if choice:
@@ -11,6 +12,7 @@ def message(l):
         else:
             messagebox.showerror("Error",msg)
             return False
+        
 def verify(aadhar,id):
     l = Patient_login(aadhar,id)
     if message(l):
@@ -42,6 +44,12 @@ def new_frame():
     label.image = img  # reference to avoid garbage collection
 
     label.pack()
+
+def add(name,bloodG,dob,aadhar,address,phone,email):
+    l = Patient_register(name,bloodG,dob,aadhar,address,phone,email)
+    message(l)
+    treatment()
+
 
 #TREATMENT FUNCTION
 def treatment():
@@ -105,11 +113,10 @@ def view():
 #UPDATE RECORD FUNCTION
 def update():
     new_frame()
-    
     # frame.configure()
     close_bt=Button(frame,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame)
     close_bt.place(x=880,y=30)
-    
+
     #heading
     heading=Label(frame,text='PATIENT LOGIN',font=('Montsterrat',25,'bold'),bg='white',fg='lime green')
     heading.place(x=140,y=130)
@@ -154,10 +161,10 @@ def new_patient():
     close_bt=Button(frame2,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame2)
     close_bt.place(x=900,y=55)
    
-#heading
+    #heading
     heading2=Label(frame2,text='PATIENT DETAILS',font=('Montsterrat',25,'bold'),bg='white',fg='lime green')
     heading2.place(x=350,y=75)
-##name entry
+    ##name entry
     #name label
     label3= Label(frame2,text="NAME OF THE PATIENT:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
     label3.place(x=100,y=150)
@@ -175,8 +182,8 @@ def new_patient():
     label5= Label(frame2,text="ADDRESS:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
     label5.place(x=100,y=310)
      #address entry
-    add=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    add.place(x=100,y=335)
+    addr=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
+    addr.place(x=100,y=335)
     #phone label
     label6= Label(frame2,text="PHONE NO:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
     label6.place(x=100,y=390)
@@ -216,7 +223,8 @@ def new_patient():
     # next_date.place(x=600,y=415)
     #add pateint BUTTON
     addbutton=Button(frame2,width=19,bd=0,text='ADD PATIENT',font=('Montsterrat',16,'bold'),
-                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',command=treatment)
+                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
+                        command=lambda:add(name2.get(),b_grp.get(),str(dob.get_date()),a_name.get(),addr.get(),phone.get(),email_id.get()))
     addbutton.place(x=620,y=480)
 
 def show_info():
@@ -312,3 +320,4 @@ def homepage():
 
 
 
+# homepage()

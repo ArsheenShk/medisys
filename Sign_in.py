@@ -14,6 +14,13 @@ def home(username,password):
         close()
         homepage()
 
+def goto_register(name,username,email,dob,password):
+    l = dbregister(name,username,email,dob,password)
+    if message(l):
+        sign_in()
+
+
+
 def sign_in(page=1):
     global login_window
     close()
@@ -172,7 +179,7 @@ def sign_in(page=1):
         #Register Button
         Registerbutton=Button(login_window,width=19,bd=0,text='Register',font=('Montsterrat',18,'bold'),
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
-                        command=lambda:dbregister(name.get(),(username.get()).lower(),Email.get(),dob.get(),password.get()))
+                        command=lambda:goto_register(name.get(),(username.get()).lower(),Email.get(),dob.get(),password.get()))
         Registerbutton.place(x=590,y=490)
 
         #backlogin Button

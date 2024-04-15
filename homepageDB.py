@@ -19,10 +19,18 @@ conn.commit()
 
 def Patient_register(name,bloodG,dob,aadhar,address,phone,email):
     print(name,bloodG,dob,aadhar,address,phone,email)
-    c.execute("insert into Patient (name,bloodG,dob,aadhar,address,phone,email) values(?,?,?,?,?,?,?)",(name,bloodG,dob,aadhar,address,phone,email))
-    print("Registration successful")
-    conn.commit()
+    c.execute("select * from Patient where aadhar=?",(aadhar,))
+    data = c.fetchone()
+    if not data: 
+        c.execute("insert into Patient (name,bloodG,dob,aadhar,address,phone,email) values(?,?,?,?,?,?,?)",(name,bloodG,dob,aadhar,address,phone,email))
+        print("Registration successful")
+        conn.commit()
+        return [1,"Registration successful"]
 
+    else:
+        print("Patient Already Registered")
+        return [1,"Patient Already Registered"]
+    
 # Patient_register('Dp',"B+","22-06-2002",'123456789123',"Jalgaon","1234567890","Dp@gmail.com")
 def Patient_login(aadhar,id):
     print(aadhar)
@@ -42,3 +50,4 @@ def create_patient_db(id):
     conn = sqlite3.connect(id+'.db')
     c = conn.cursor()
 
+create_patient_db("123")

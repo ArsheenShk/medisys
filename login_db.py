@@ -29,8 +29,20 @@ def dblogin(username,password):
         return[False,"Login Failed"]
 
 def dbregister(name,username,email,dob,password):
+    
+    if not(name and username and email and password ):
+        return [0,"Please complete all feilds"]
+    
     print(name,username,email,dob,password)
-    c.execute("insert into Doctor (name,username,email,dob,password) values(?,?,?,?,?)",(name,username,email,dob,password))
-    print("Registration successful")
-    conn.commit()
 
+    c.execute("select * from Doctor where username=?",(username,))
+    data = c.fetchone()
+    if not data:
+        c.execute("insert into Doctor (name,username,email,dob,password) values(?,?,?,?,?)",(name,username,email,dob,password))
+        print("Registration successful")
+        conn.commit()
+        return [1,"Registration successful"]
+
+    else:
+        print("Doctor Already Registered")
+        return [1,"Doctor Already Registered"]
