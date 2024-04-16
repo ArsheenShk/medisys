@@ -232,55 +232,42 @@ def show_info():
 
     close_bt=Button(frame2,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame2)
     close_bt.place(x=900,y=55)
-   
+    #PATIENT DETAILS
     #heading
     heading2=Label(frame2,text='PATIENT DETAILS',font=('Montsterrat',25,'bold'),bg='white',fg='lime green')
     heading2.place(x=350,y=75)
-    ##name entry
-    #name label
-    label3= Label(frame2,text="TREATMENT TAKEN FOR:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    label3.place(x=100,y=150)
-    #name entry
+   
+    #disease name label
+    label1= Label(frame2,text="TREATMENT TAKEN FOR:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
+    label1.place(x=100,y=150)
+    #disease name entry
     disease=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
     disease.place(x=100,y=175)
-    #dob label
-    # label4= Label(frame2,text="DATE OF BIRTH:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label4.place(x=100,y=230)
-    # #dob entry
-    # dob=DateEntry(frame2, date_pattern='yyyy-mm-dd', firstweekday='sunday',
-    #                     locale='en_US', width=20,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
-    # dob.place(x=100,y=255)
-    #  #address label
-    # label5= Label(frame2,text="ADDRESS:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label5.place(x=100,y=310)
-    #  #address entry
-    # add=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # add.place(x=100,y=335)
-    # #phone label
-    # label6= Label(frame2,text="PHONE NO:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label6.place(x=100,y=390)
-    # #phone entry
-    # phone=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # phone.place(x=100,y=415)
-    # #EmailID
-    # label7= Label(frame2,text="EMAIL ID:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label7.place(x=100,y=470)
-    # #email entry
-    # email_id=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # email_id.place(x=100,y=495)
+
+    #medicine label
+    label2= Label(frame2,text="MEDICINE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
+    label2.place(x=100,y=250)
+    #medicine entry
+    medicine=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
+    medicine.place(x=100,y=275)
+
+    #next appointment label
+    label3= Label(frame2,text="NEXT APPOINTMENT DATE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
+    label3.place(x=100,y=350)
+    #next appointment  entry
+    next_date=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
+    next_date.place(x=100,y=375)
+
+    #fees label
+    label4= Label(frame2,text="TOTAL FEE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
+    label4.place(x=100,y=450)
+    #fees  entry
+    fees=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
+    fees.place(x=100,y=475)
+
+
+
     
-    # #bloodgroup
-    # label8= Label(frame2,text="BLOOD GROUP:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label8.place(x=600,y=150)
-    # #bg entry
-    # b_grp=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # b_grp.place(x=600,y=175)
-    # #medicine name
-    # label9= Label(frame2,text="Aadhar No",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label9.place(x=600,y=230)
-    # #med  entry
-    # a_name=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # a_name.place(x=600,y=255)
     
     savebutton=Button(frame2,width=19,bd=0,text='Save',font=('Montsterrat',16,'bold'),
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',command=treatment)

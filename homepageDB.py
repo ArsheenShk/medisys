@@ -19,7 +19,7 @@ conn.commit()
 
 def Patient_register(name,bloodG,dob,aadhar,address,phone,email):
     print(name,bloodG,dob,aadhar,address,phone,email)
-    c.execute("select * from Patient where aadhar=?",(aadhar,))
+    c.execute("select * from Patient where aadhar=?",(aadhar))
     data = c.fetchone()
     if not data: 
         c.execute("insert into Patient (name,bloodG,dob,aadhar,address,phone,email) values(?,?,?,?,?,?,?)",(name,bloodG,dob,aadhar,address,phone,email))
