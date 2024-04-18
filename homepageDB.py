@@ -64,10 +64,14 @@ def get_data(aadhar,date):
 
 def Patient_register(name,bloodG,dob,aadhar,address,phone,email):
     print(name,bloodG,dob,aadhar,address,phone,email)
+    if not(name and bloodG and aadhar and address and phone and email):
+        return [False,"Please complete all feilds"]
+    
     create_patient_table(aadhar)
 
     c.execute("select * from Patient where aadhar=?",(aadhar,))
     data = c.fetchone()
+    print(data)
     if not data: 
         c.execute("insert into Patient (name,bloodG,dob,aadhar,address,phone,email) values(?,?,?,?,?,?,?)",(name,bloodG,dob,aadhar,address,phone,email))
         print("Registration successful")
@@ -92,8 +96,6 @@ def Patient_login(aadhar,id):
         return[False,"Login Failed"]
 
 # Patient_login("123456789123","1")
-
-
 # create_patient_table(12333)
-# c.execute("drop table ")
+# c.execute("drop table P")
 # conn.commit()

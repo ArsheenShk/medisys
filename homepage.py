@@ -49,8 +49,8 @@ def new_frame():
 
 def add(name,bloodG,dob,aadhar,address,phone,email):
     l = Patient_register(name,bloodG,dob,aadhar,address,phone,email)
-    message(l)
-    Treatment()
+    if message(l):
+        Treatment()
 
 def send_data(disease,medicine,next_date,fees,aadhar):
     l = save_data(disease,medicine,next_date,fees,aadhar)
@@ -242,17 +242,18 @@ def view(aadhar,choice=True):
         tup = get_data(aadhar,choice_var.get())
 
         disease.delete(0, END)
+        medicine.delete(0, END)
+        next_date.delete(0, END)
+        fees.delete(0, END)
         
 
-        
         disease.insert(0,tup[1])
+        medicine.insert(0,tup[2])
+        next_date.insert(0,tup[3])
+        fees.insert(0,tup[4])
 
-    dates = get_dates(aadhar)
-    choice_var = StringVar(frame2)
-    choice_var.set(dates[-1])
-    choice_var.trace("w", Set_data)
-    choicebox = OptionMenu(frame2, choice_var, *dates)
-    choicebox.place(x=650,y=150)
+  
+        
 
 
     
@@ -261,6 +262,16 @@ def view(aadhar,choice=True):
                             fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
                             command=lambda:send_data(disease.get(),medicine.get(),next_date.get(),fees.get(),aadhar))
         savebutton.place(x=620,y=480)
+    else:
+        try:
+            dates = get_dates(aadhar)
+            choice_var = StringVar(frame2)
+            choice_var.set(dates[-1])
+            choice_var.trace("w", Set_data)
+            choicebox = OptionMenu(frame2, choice_var, *dates)
+            choicebox.place(x=650,y=150)
+        except:
+            pass
     
 
 def homepage():
@@ -276,6 +287,7 @@ def homepage():
     Treatmentbutton=Button(hp_window,text='Patient Treatment',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',
                             command=Treatment)
+    
     Treatmentbutton.place(x=385,y=170)
 
     newbutton=Button(hp_window,text='NEW PATEINT',activebackground='white',cursor='hand2',
@@ -296,4 +308,4 @@ def homepage():
 
 
 
-homepage()
+# homepage()
