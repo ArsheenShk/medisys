@@ -4,6 +4,7 @@ from tkcalendar import DateEntry
 from tkinter import messagebox
 from homepageDB import*
 
+
 def message(l):
         choice,msg=l[0],l[1]
         if choice:
@@ -12,12 +13,13 @@ def message(l):
         else:
             messagebox.showerror("Error",msg)
             return False
-        
-def verify(aadhar,id):
+
+def verify(aadhar,id,choice):
     l = Patient_login(aadhar,id)
+
     if message(l):
         close_frame()
-        show_info()
+        view(aadhar,choice)
 
 def close_frame():
     try:
@@ -48,11 +50,20 @@ def new_frame():
 def add(name,bloodG,dob,aadhar,address,phone,email):
     l = Patient_register(name,bloodG,dob,aadhar,address,phone,email)
     message(l)
-    treatment()
+    Treatment()
+
+def send_data(disease,medicine,next_date,fees,aadhar):
+    l = save_data(disease,medicine,next_date,fees,aadhar)
+    if message(l):
+        close_frame2()
+    else:
+        close_frame2()
+        Treatment()
+    
 
 
 #TREATMENT FUNCTION
-def treatment():
+def Treatment(choice=True):
     new_frame()
     close_frame2()
     
@@ -78,36 +89,8 @@ def treatment():
     #login button
     loginbutton=Button(frame,width=19,bd=0,text='LOGIN',font=('Montsterrat',16,'bold'),
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
-                        command=lambda:verify(aadhar.get(),P_Id.get()))
+                        command=lambda:verify(aadhar.get(),P_Id.get(),choice))
     loginbutton.place(x=135,y=430)
-
-#VIEW RECORD FUNCTION
-def view():
-    new_frame()
-    
-    # frame.configure()
-    close_bt=Button(frame,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame)
-    close_bt.place(x=880,y=30)
-    
-    #heading
-    heading=Label(frame,text='PATIENT LOGIN',font=('Montsterrat',25,'bold'),bg='white',fg='lime green')
-    heading.place(x=140,y=130)
-    #name label
-    label1= Label(frame,text="Aadhar No:",font=('Montsterrat',16,'bold'),bd=0,bg='white',fg='navy')
-    label1.place(x=140,y=230)
-    #name entry
-    name=Entry(frame,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
-    name.place(x=140,y=260)
-    #pateint ID label
-    label2= Label(frame,text="PATIENT ID:",font=('Montsterrat',16,'bold'),bd=0,bg='white',fg='navy')
-    label2.place(x=140,y=330)
-    #patientID entry
-    P_Id=Entry(frame,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    P_Id.place(x=140,y=360)
-    #login button
-    viewbutton=Button(frame,width=19,bd=0,text='VIEW RECORD',font=('Montsterrat',16,'bold'),
-                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',command=show_info)
-    viewbutton.place(x=135,y=430)
 
 
 #UPDATE RECORD FUNCTION
@@ -209,25 +192,14 @@ def new_patient():
     #med  entry
     a_name=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
     a_name.place(x=600,y=255)
-    # #total fee
-    # label10= Label(frame2,text="TOTAL FEE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label10.place(x=600,y=310)
-    # #entry
-    # total=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # total.place(x=600,y=335)
-    #Next appointment
-    # label11=Label(frame2,text="NEXT APPOINTMENT DATE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
-    # label11.place(x=600,y=390)
-    # #entry
-    # next_date=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,fg='navy')
-    # next_date.place(x=600,y=415)
-    #add pateint BUTTON
+   
+
     addbutton=Button(frame2,width=19,bd=0,text='ADD PATIENT',font=('Montsterrat',16,'bold'),
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
                         command=lambda:add(name2.get(),b_grp.get(),str(dob.get_date()),a_name.get(),addr.get(),phone.get(),email_id.get()))
     addbutton.place(x=620,y=480)
 
-def show_info():
+def view(aadhar,choice=True):
     new_frame2()
 
     close_bt=Button(frame2,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame2)
@@ -255,7 +227,8 @@ def show_info():
     label3= Label(frame2,text="NEXT APPOINTMENT DATE:",font=('Montsterrat',14,'bold'),bd=0,bg='white',fg='navy')
     label3.place(x=100,y=350)
     #next appointment  entry
-    next_date=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
+    next_date=DateEntry(frame2, date_pattern='yyyy-mm-dd', firstweekday='sunday',
+                        locale='en_US', width=20,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
     next_date.place(x=100,y=375)
 
     #fees label
@@ -265,13 +238,29 @@ def show_info():
     fees=Entry(frame2,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
     fees.place(x=100,y=475)
 
+    def Set_data(*args):
+        tup = get_data(aadhar,choice_var.get())
+
+        disease.delete(0, END)
+        
+
+        
+        disease.insert(0,tup[1])
+
+    dates = get_dates(aadhar)
+    choice_var = StringVar(frame2)
+    choice_var.set(dates[-1])
+    choice_var.trace("w", Set_data)
+    choicebox = OptionMenu(frame2, choice_var, *dates)
+    choicebox.place(x=650,y=150)
 
 
     
-    
-    savebutton=Button(frame2,width=19,bd=0,text='Save',font=('Montsterrat',16,'bold'),
-                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',command=treatment)
-    savebutton.place(x=620,y=480)
+    if choice==True:
+        savebutton=Button(frame2,width=19,bd=0,text='Save',font=('Montsterrat',16,'bold'),
+                            fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
+                            command=lambda:send_data(disease.get(),medicine.get(),next_date.get(),fees.get(),aadhar))
+        savebutton.place(x=620,y=480)
     
 
 def homepage():
@@ -284,10 +273,10 @@ def homepage():
     bglabel.grid(row=0,column=0)
 
     #BUTTONS
-    treatmentbutton=Button(hp_window,text='Patient Treatment',activebackground='white',cursor='hand2',
+    Treatmentbutton=Button(hp_window,text='Patient Treatment',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',
-                            command=treatment)
-    treatmentbutton.place(x=385,y=170)
+                            command=Treatment)
+    Treatmentbutton.place(x=385,y=170)
 
     newbutton=Button(hp_window,text='NEW PATEINT',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',
@@ -295,7 +284,7 @@ def homepage():
     newbutton.place(x=420,y=250)
 
     viewbutton=Button(hp_window,text='VIEW RECORD',activebackground='white',cursor='hand2',
-                            font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',command=view)
+                            font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',command=lambda:Treatment(False))
     viewbutton.place(x=420,y=330)
 
     updatebutton=Button(hp_window,text='UPDATE RECORD',activebackground='white',cursor='hand2',
@@ -307,4 +296,4 @@ def homepage():
 
 
 
-# homepage()
+homepage()
