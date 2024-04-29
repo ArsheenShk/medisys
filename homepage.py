@@ -131,9 +131,8 @@ def update(choice=True):
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green'
                         ,command=lambda:verify(aadhar.get(),P_Id.get(),choice))
     loginbutton.place(x=135,y=430)
-
-
-
+ 
+   
 
 #NEW PATEINT FUNCTION
 def new_frame2():
@@ -299,20 +298,20 @@ def homepage():
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',
                             command=Treatment)
     
-    Treatmentbutton.place(x=385,y=170)
+    Treatmentbutton.place(x=150,y=170)
 
     newbutton=Button(hp_window,text='NEW PATEINT',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',
                             command=new_patient)
-    newbutton.place(x=420,y=250)
+    newbutton.place(x=170,y=250)
 
     viewbutton=Button(hp_window,text='VIEW RECORD',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',command=lambda:Treatment(False))
-    viewbutton.place(x=420,y=330)
+    viewbutton.place(x=170,y=330)
 
     updatebutton=Button(hp_window,text='UPDATE RECORD',activebackground='white',cursor='hand2',
                             font=('Montsterrat',20,'bold'),fg='white',bd=0,bg='lime green',activeforeground='LIME GREEN',command=update)
-    updatebutton.place(x=395,y=410)
+    updatebutton.place(x=150,y=410)
 
     hp_window.mainloop()
 
