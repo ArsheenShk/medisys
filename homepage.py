@@ -21,6 +21,13 @@ def verify(aadhar,id,choice):
         close_frame()
         view(aadhar,choice)
 
+def verify2(aadhar,id,choice):
+    l = Patient_login(aadhar,id)
+
+    if message(l):
+        close_frame()
+        update(aadhar,choice)
+
 def close_frame():
     try:
         frame.destroy()
@@ -59,8 +66,9 @@ def send_data(disease,medicine,next_date,fees,aadhar):
     else:
         close_frame2()
         Treatment()
-    
 
+
+    
 
 #TREATMENT FUNCTION
 def Treatment(choice=True):
@@ -93,9 +101,12 @@ def Treatment(choice=True):
     loginbutton.place(x=135,y=430)
 
 
+
+   
 #UPDATE RECORD FUNCTION
-def update():
+def update(choice=True):
     new_frame()
+    close_frame2()
     # frame.configure()
     close_bt=Button(frame,text="❌",cursor='hand2',font=('Montsterrat',12,'bold') ,relief=FLAT, bg="white",fg='red', command=close_frame)
     close_bt.place(x=880,y=30)
@@ -107,8 +118,8 @@ def update():
     label1= Label(frame,text="Aadhar No:",font=('Montsterrat',16,'bold'),bd=0,bg='white',fg='navy')
     label1.place(x=140,y=230)
     #name entry
-    name=Entry(frame,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
-    name.place(x=140,y=260)
+    aadhar=Entry(frame,width=22,font=('Montsterrat',14),bd=1,bg='white',fg='navy')
+    aadhar.place(x=140,y=260)
     #pateint ID label
     label2= Label(frame,text="PATIENT ID:",font=('Montsterrat',16,'bold'),bd=0,bg='white',fg='navy')
     label2.place(x=140,y=330)
@@ -116,10 +127,10 @@ def update():
     P_Id=Entry(frame,width=22,font=('Montsterrat',14),bd=1,fg='navy')
     P_Id.place(x=140,y=360)
     #login button
-    updatebutton=Button(frame,width=19,bd=0,text='UPDATE RECORD',font=('Montsterrat',16,'bold'),
-                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green')
-    updatebutton.place(x=135,y=430)
-
+    loginbutton=Button(frame,width=19,bd=0,text='UPDATE RECORD',font=('Montsterrat',16,'bold'),
+                        fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green'
+                        ,command=lambda:verify(aadhar.get(),P_Id.get(),choice))
+    loginbutton.place(x=135,y=430)
 
 
 
@@ -305,6 +316,5 @@ def homepage():
 
     hp_window.mainloop()
 
-
-
+homepage()
 

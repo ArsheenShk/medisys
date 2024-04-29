@@ -245,7 +245,7 @@ def sign_in(page=1):
                 sign_in()
 
 
-        #Register Button
+        #Reset Button
         Resetbutton=Button(login_window,width=19,bd=0,text='Reset',font=('Montsterrat',18,'bold'),
                         fg='white',bg='lime green',cursor='hand2',activeforeground='white',activebackground='lime green',
                         command=reset)

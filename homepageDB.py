@@ -94,6 +94,12 @@ def Patient_login(aadhar,id):
     else:
         print("error")
         return[False,"Login Failed"]
+    
+def update_data(disease,medicine,next_date,fees,aadhar):
+    print(disease,medicine,next_date,fees)
+    c.execute("UPDATE P"+aadhar+"SET disease=?,medicine=?,next_date=?,fees=? WHERE aadhar=? ")
+    conn.commit()
+
 # Patient_login("123456789123","1")
 # create_patient_table(12333)
 # c.execute("drop table P")
