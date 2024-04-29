@@ -94,7 +94,6 @@ def Patient_login(aadhar,id):
     else:
         print("error")
         return[False,"Login Failed"]
-
 # Patient_login("123456789123","1")
 # create_patient_table(12333)
 # c.execute("drop table P")
